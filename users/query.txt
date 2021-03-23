@@ -1,0 +1,117 @@
+//all users
+query{
+  users{
+    edges{
+      node{
+        username
+        email
+        isActive
+        verified
+      }
+    }
+  }
+}
+//MeQuery
+query{
+  me{
+  	username
+    email
+  }
+}
+
+//Registation
+mutation{
+  register(
+    username:"customer",
+    email:"customer@gmail.com",
+    password1:"GraphQlAuth2021",
+    password2:"GraphQlAuth2021"
+  )
+  {
+    success
+    errors
+    token
+    refreshToken
+  }
+}
+
+//Account Varification
+mutation{
+ verifyAccount(token:"eyJ1c2VybmFtZSI6ImN1c3RvbWVyIiwiYWN0aW9uIjoiYWN0aXZhdGlvbiJ9:1lO09k:ye-T2_fAbBJzdjdFTFXfyB3m8ED6Zr6mjuNvaX1OVLM")
+  {
+    success
+    errors
+  }
+}
+
+//Login
+mutation{
+tokenAuth(username:"customer", password:"GraphQlAuth2021")
+  {
+    success,
+    errors,
+    token,
+    refreshToken,
+    user{
+      username,
+      email
+    }
+  }
+}
+
+//update Account
+use postman to test
+Key : Authorization 
+Value : JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImN1c3RvbWVyIiwiZXhwIjoxNjE2MzUxNzc1LCJvcmlnSWF0IjoxNjE2MzUxNDc1fQ.bWaoIS3F_Bfj6MCj29qelSQyTpylq_qBk4B6xRMJVyg
+Body: GraphQL
+Query :
+mutation{
+  updateAccount(firstName:"customer", lastName:"user")
+  {
+    success
+    errors
+  }
+}
+
+//Resend Confirmation email
+mutation{
+  resendActivationEmail(email:"customer@gmail.com")
+  {
+    errors
+  }
+}
+
+//Forgotten Password
+mutation{
+  sendPasswordResetEmail(email:"customer@gmail.com"){
+    success
+    errors
+  }
+}
+
+//Reset Password
+mutation{
+  passwordReset(
+    token:"eyJ1c2VybmFtZSI6ImN1c3RvbWVyIiwiYWN0aW9uIjoicGFzc3dvcmRfcmVzZXQifQ:1lO3QH:2W-ooih5tXl8IqFbw3yXHhAhhUG4NjrNfgg7WJ8AN5k",
+    newPassword1:"NewYear2021",
+    newPassword2:"NewYear2021"
+  )
+  {
+    success
+    errors
+  }
+}
+
+//Password Change
+mutation {
+ passwordChange(
+    oldPassword: "GraphQlAuth2021",
+    newPassword1: "FinalCountDown2021",
+    newPassword2: "FinalCountDown2021"
+  ) {
+    success,
+    errors,
+    token,
+    refreshToken
+  }
+}
