@@ -1,0 +1,36 @@
+//list
+query{
+  allIngredients{
+    edges{
+      node{
+        id
+        name
+      }
+    }
+  }
+}
+
+//single item
+query {
+  ingredient(id: "SW5ncmVkaWVudE5vZGU6MQ==") {
+    name
+  }
+}
+
+//each ingredient for each category
+query{
+  allCategories{
+    edges{
+      node{
+        name,
+        ingredients{
+          edges{
+            node{
+              name
+            }
+          }
+        }
+      }
+    }
+  }
+}
