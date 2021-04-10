@@ -3,27 +3,26 @@ from graphene import relay, ObjectType
 from graphene_django import DjangoObjectType
 from graphene_django.filter import DjangoFilterConnectionField
 
-from .models import Category, Ingredient
+from .models import Category, Product
 
 
-# Graphene will automatically map the Category model's fields onto the CategoryNode.
-# This is configured in the CategoryNode's Meta class (as you can see below)
 class CategoryNode(DjangoObjectType):
     class Meta:
         model = Category
-        filter_fields = ['name', 'ingredients']
+        fields = "__all__"
+        filter_fields = ['name', 'slug']
         interfaces = (relay.Node, )
 
 
-class IngredientNode(DjangoObjectType):
+class ProductNode(DjangoObjectType):
     class Meta:
-        model = Ingredient
-        # Allow for some more advanced filtering here
+        model = Product
+        
         filter_fields = {
             'name': ['exact', 'icontains', 'istartswith'],
-            'notes': ['exact', 'icontains'],
+            'price': ['exact', 'icontains', 'istartswith'],
             'category': ['exact'],
-            'category__name': ['exact'],
+            'category__slug': ['exact'],
         }
         interfaces = (relay.Node, )
 
@@ -32,5 +31,5 @@ class Query(graphene.ObjectType):
     category = relay.Node.Field(CategoryNode)
     all_categories = DjangoFilterConnectionField(CategoryNode)
 
-    ingredient = relay.Node.Field(IngredientNode)
-    all_ingredients = DjangoFilterConnectionField(IngredientNode)
+    product = relay.Node.Field(ProductNode)
+    all_products = DjangoFilterConnectionField(ProductNode)

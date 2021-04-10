@@ -1,9 +1,10 @@
 import graphene
 
 import users.schema
+import apps.items.schema
 
 
-class Query(users.schema.Query, graphene.ObjectType):
+class Query(users.schema.Query, apps.items.schema.Query, graphene.ObjectType):
     # This class will inherit from multiple Queries
     # as we begin to add more apps to our project
     pass

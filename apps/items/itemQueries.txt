@@ -1,0 +1,104 @@
+//List of all allCategories
+query{
+  allCategories{
+    edges{
+      node{
+        name
+        slug
+      }
+    }
+  }
+}
+
+//Category with related products
+query{
+	allCategories{
+    edges{
+      node{
+        name
+        slug
+        products{
+          edges{
+            node{
+              name
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+//single category details
+query{
+  category(id:"Q2F0ZWdvcnlOb2RlOjM="){
+    name
+    slug
+  }
+}
+
+//list of all products
+query{
+  allProducts{
+    edges{
+      node{
+        name,
+        category {
+          name
+        }
+      }
+    }
+  }
+}
+
+//single product details
+query{
+  product(id:"UHJvZHVjdE5vZGU6NQ=="){
+    name
+    category{
+      name
+    }
+    slug
+    price
+    description
+    image
+    thumbnail
+    dateAdded
+  }
+}
+
+//search product by category_slug
+query{
+  allProducts(category_Slug:"mobile"){
+    edges{
+      node{
+        name
+        price
+      }
+    }
+  }
+}
+
+//search product by price
+query{
+  allProducts(price:80){
+    edges{
+      node{
+        name
+        price
+      }
+    }
+  }
+}
+
+//search product by price, name, latter
+query{
+  allProducts(price:80, name_Icontains:"sa"){
+    edges{
+      node{
+        name
+        price
+      }
+    }
+  }
+}
